@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Selecto",
   "version": "1.0",
-  "description": "Quickly select text content of any element by hovering with your mouse and using keyboard shortcuts",
+  "description": "Easily select text from any elements including interactive ones like buttons,dropdowns etc.",
   "permissions": ["storage", "commands", "tabs", "clipboardWrite"],
   "commands": {
     "select-text": {
