@@ -1,4 +1,4 @@
-Selecto - Text Selection for Interactive Elements
+Selecto Chrome Extension- Text Selection for Interactive Elements
 
 ![Selecto Usage Demo](assets/usage-gif.gif)
 
