@@ -1,5 +1,7 @@
 Selecto - Text Selection for Interactive Elements
 
+![Selecto Usage Demo](assets/usage-gif.gif)
+
 Selecto solves a common frustration: selecting text from any elements including interactive elements that normally prevent text selection. With Selecto, you can easily copy text from buttons, dropdowns, links, and other interactive elements that usually block text selection.
 
 Features:
