@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("openShortcuts").addEventListener("click", () => {
-    chrome.tabs.create({
-      url: "chrome://extensions/shortcuts",
-    });
+  const openShortcutsPage = () => {
+    chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
+  };
+
+  document.querySelectorAll(".open-shortcuts").forEach(el => {
+    el.addEventListener("click", openShortcutsPage);
   });
 
   chrome.commands.getAll((commands) => {
@@ -21,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     checkbox.checked = result.showCopyIcon !== false;
   });
 
-  checkbox.addEventListener("change", () => {
-    chrome.storage.sync.set({ showCopyIcon: checkbox.checked });
+  checkbox.addEventListener("change", (e) => {
+    chrome.storage.sync.set({ showCopyIcon: e.target.checked });
   });
 });

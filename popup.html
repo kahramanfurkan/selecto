@@ -7,17 +7,37 @@
   <body>
     <div class="selecto-popup">
       <h3>Selecto Settings</h3>
+      <p>
+        Selecto uses the keyboard shortcuts to activate. You can change the
+        shortcut in
+        <a href="#" class="shortcut-link open-shortcuts"
+          >Chrome's keyboard shortcuts settings</a
+        >.
+      </p>
       <div class="shortcut-container">
         <span>Current Shortcut:</span>
-        <span id="currentShortcut">Alt+S</span>
+        <span id="currentShortcut"></span>
+        <a
+          href="#"
+          class="shortcut-link settings-icon open-shortcuts"
+          title="Change shortcut"
+        >
+          <img src="icons/settings.png" alt="" width="16" height="16" />
+        </a>
       </div>
-      <p>To change the shortcut, use Chrome's keyboard shortcuts settings:</p>
-      <button id="openShortcuts">Open Shortcut Settings</button>
-      <div class="checkbox-container">
-        <label>
-          <input type="checkbox" id="showCopyIcon" />
-          Show copy icon
-        </label>
+      <div class="settings-container">
+        <div class="checkbox-container">
+          <label>
+            <input type="checkbox" id="showCopyIcon" />
+            Show copy button
+          </label>
+        </div>
+        <a
+          href="https://buymeacoffee.com/kahramanfurkan"
+          target="_blank"
+          class="shortcut-link"
+          >Support developer</a
+        >
       </div>
     </div>
     <script src="popup.js"></script>

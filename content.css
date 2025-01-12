@@ -133,13 +133,19 @@ body.selecto-selection-mode * {
   gap: 8px;
 }
 
+.settings-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+}
+
 .checkbox-container {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid #eee;
 }
 
 .checkbox-container label {
@@ -156,18 +162,16 @@ body.selecto-selection-mode * {
   cursor: pointer;
 }
 
-.selecto-popup button {
-  padding: 8px 16px;
-  background: #2196f3;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.2s;
+.shortcut-link {
+  color: #2196f3;
+  text-decoration: none;
+  font-size: 13px;
+  transition: color 0.2s;
 }
 
-.selecto-popup button:hover {
-  background: #1976d2;
+.shortcut-link:hover {
+  color: #1976d2;
+  text-decoration: underline;
 }
 
 .selecto-popup #currentShortcut {
@@ -182,4 +186,10 @@ body.selecto-selection-mode * {
   margin: 0;
   color: #666;
   font-size: 14px;
+}
+
+.settings-icon {
+  display: inline-flex;
+  align-items: center;
+  transition: background-color 0.2s;
 }

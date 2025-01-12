@@ -2,6 +2,7 @@ let isSelectionMode = false;
 let originalSpellcheck = null;
 let statusTimeout = null;
 let copyButton = null;
+let currentSelection = "";
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "selectText") {
@@ -78,6 +79,7 @@ function handleMouseUp(e) {
   if (isSelectionMode) {
     const selection = window.getSelection();
     if (selection && selection.toString().trim().length > 0) {
+      currentSelection = selection.toString();
       chrome.storage.sync.get(["showCopyIcon"], (result) => {
         if (result.showCopyIcon !== false) {
           showCopyButton(selection);
@@ -126,7 +128,7 @@ function showCopyButton(selection) {
     <img src="${chrome.runtime.getURL("icons/copy.png")}" alt="">
     <div class="selecto-copy-button-close" title="Close">×</div>
   `;
-  copyButton.title = "Copy to clipboard";
+  copyButton.title = `Copy to clipboard [${currentSelection}]`;
   copyButton.style.top = `${rect.top + window.scrollY}px`;
   copyButton.style.left = `${rect.right + window.scrollX + 5}px`;
   const closeButton = copyButton.querySelector(".selecto-copy-button-close");
@@ -135,8 +137,7 @@ function showCopyButton(selection) {
     removeCopyButton();
   });
   copyButton.addEventListener("click", () => {
-    const text = selection.toString();
-    navigator.clipboard.writeText(text).then(() => {
+    navigator.clipboard.writeText(currentSelection).then(() => {
       copyButton.classList.add("copied");
       copyButton.innerHTML = "Copied!";
 
@@ -159,6 +160,7 @@ function removeCopyButton() {
   if (copyButton) {
     copyButton.remove();
     copyButton = null;
+    currentSelection = "";
   }
 }
 

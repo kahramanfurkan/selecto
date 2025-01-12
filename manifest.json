@@ -7,7 +7,8 @@
   "commands": {
     "select-text": {
       "suggested_key": {
-        "default": "Alt+S"
+        "default": "Alt+S",
+        "mac": "MacCtrl+S"
       },
       "description": "Activate Selecto"
     }
