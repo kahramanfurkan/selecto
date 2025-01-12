@@ -2,6 +2,44 @@ let isSelectionMode = false;
 let originalSpellcheck = null;
 let statusTimeout = null;
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'selectText') {
+        toggleSelectionMode();
+    }
+});
+
+function toggleSelectionMode(onTextSelect) {
+    isSelectionMode = !isSelectionMode;
+
+    if (isSelectionMode) {
+        enableSelectionMode();
+    } else {
+        disableSelectionMode();
+    }
+    toggleStatusPopup(onTextSelect);
+}
+
+function enableSelectionMode() {
+    originalSpellcheck = document.body.spellcheck;
+    document.body.spellcheck = false;
+    document.designMode = 'on';
+    document.body.classList.add('selecto-selection-mode');
+    document.addEventListener('keydown', preventEditing, true);
+    document.addEventListener('input', preventEditing, true);
+    document.addEventListener('click', preventClicks, true);
+    document.addEventListener('mouseup', handleMouseUp, true);
+}
+
+function disableSelectionMode() {
+    document.body.spellcheck = originalSpellcheck;
+    document.designMode = 'off';
+    document.body.classList.remove('selecto-selection-mode');
+    document.removeEventListener('keydown', preventEditing, true);
+    document.removeEventListener('input', preventEditing, true);
+    document.removeEventListener('click', preventClicks, true);
+    document.removeEventListener('mouseup', handleMouseUp, true);
+}
+
 function toggleStatusPopup(onTextSelect) {
     const existingPopup = document.querySelector('.selecto-status');
     if (existingPopup) {
@@ -28,46 +66,6 @@ function toggleStatusPopup(onTextSelect) {
         }, 2000);
     }
 }
-
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === 'selectText') {
-        toggleSelectionMode();
-    }
-});
-
-
-function toggleSelectionMode(onTextSelect) {
-    isSelectionMode = !isSelectionMode;
-
-    if (isSelectionMode) {
-        enableSelectionMode();
-    } else {
-        disableSelectionMode();
-    }
-    toggleStatusPopup(onTextSelect);
-}
-
-function enableSelectionMode() {
-    originalSpellcheck = document.body.spellcheck;
-    document.body.spellcheck = false;
-    document.designMode = 'on';
-    document.body.style.cursor = 'text';
-    document.addEventListener('keydown', preventEditing, true);
-    document.addEventListener('input', preventEditing, true);
-    document.addEventListener('click', preventClicks, true);
-    document.addEventListener('mouseup', handleMouseUp, true);
-}
-
-function disableSelectionMode() {
-    document.body.spellcheck = originalSpellcheck;
-    document.designMode = 'off';
-    document.body.style.cursor = '';
-    document.removeEventListener('keydown', preventEditing, true);
-    document.removeEventListener('input', preventEditing, true);
-    document.removeEventListener('click', preventClicks, true);
-    document.removeEventListener('mouseup', handleMouseUp, true);
-}
-
 
 function preventClicks(e) {
     if (isSelectionMode) {
