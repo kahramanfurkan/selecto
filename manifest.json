@@ -3,7 +3,7 @@
   "name": "Selecto",
   "version": "1.0",
   "description": "Quickly select text content of any element by hovering with your mouse and using keyboard shortcuts",
-  "permissions": ["storage", "commands", "tabs"],
+  "permissions": ["storage", "commands", "tabs", "clipboardWrite"],
   "commands": {
     "select-text": {
       "suggested_key": {

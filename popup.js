@@ -14,4 +14,14 @@ document.addEventListener("DOMContentLoaded", () => {
         selectTextCommand.shortcut;
     }
   });
+
+  const checkbox = document.getElementById("showCopyIcon");
+
+  chrome.storage.sync.get(["showCopyIcon"], (result) => {
+    checkbox.checked = result.showCopyIcon !== false;
+  });
+
+  checkbox.addEventListener("change", () => {
+    chrome.storage.sync.set({ showCopyIcon: checkbox.checked });
+  });
 });

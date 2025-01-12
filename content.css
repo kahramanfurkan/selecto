@@ -1,3 +1,4 @@
+/* Status Styles */
 .selecto-status {
   position: fixed;
   bottom: 20px;
@@ -25,6 +26,63 @@
 
 .selecto-status.off {
   background: rgba(244, 67, 54, 0.9);
+}
+
+/* Copy Button Styles */
+.selecto-copy-button {
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  background: white;
+  border: 1px solid white;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  z-index: 999999999999999;
+  cursor: pointer !important;
+}
+
+.selecto-copy-button:hover {
+  border-color: #2196f3;
+}
+
+.selecto-copy-button.copied {
+  width: auto;
+  padding: 0 10px;
+  background: #4caf50;
+  color: white;
+  font-size: 12px;
+}
+
+.selecto-copy-button.copied .selecto-copy-button-close {
+  display: none;
+}
+
+.selecto-copy-button .selecto-copy-button-close {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  width: 10px;
+  height: 10px;
+  background: #ff4444;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  cursor: pointer !important;
+  z-index: 999999999999999;
+  line-height: 1;
+}
+
+.selecto-copy-button .selecto-copy-button-close:hover {
+  background: #ff0000;
 }
 
 /* Selection Mode Styles */
@@ -73,6 +131,29 @@ body.selecto-selection-mode * {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #eee;
+}
+
+.checkbox-container label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+  cursor: pointer;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
 }
 
 .selecto-popup button {
