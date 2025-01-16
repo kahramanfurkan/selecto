@@ -3,6 +3,7 @@ let originalSpellcheck = null;
 let statusTimeout = null;
 let copyButton = null;
 let currentSelection = "";
+let mouseUpTimeout = null;
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "selectText") {
@@ -29,7 +30,6 @@ function enableSelectionMode() {
   document.addEventListener("input", preventEditing, true);
   document.addEventListener("click", preventClicks, true);
   document.addEventListener("mouseup", handleMouseUp, true);
-  document.addEventListener("dblclick", handleDoubleClick, true);
 }
 
 function disableSelectionMode(onTextSelect) {
@@ -40,7 +40,6 @@ function disableSelectionMode(onTextSelect) {
   document.removeEventListener("input", preventEditing, true);
   document.removeEventListener("click", preventClicks, true);
   document.removeEventListener("mouseup", handleMouseUp, true);
-  document.removeEventListener("dblclick", handleDoubleClick, true);
   if (!onTextSelect) removeCopyButton();
   document.addEventListener("click", (e) => checkCopyButton(e.target), true);
 }
@@ -65,16 +64,6 @@ function toggleStatusPopup(onTextSelect) {
   }
 }
 
-function handleDoubleClick(e) {
-  const selection = window.getSelection();
-  if (selection) {
-    selection.selectAllChildren(e.target);
-    setTimeout(() => {
-      handleMouseUp();
-    }, 500);
-  }
-}
-
 function handleMouseUp(e) {
   if (isSelectionMode) {
     const selection = window.getSelection();
@@ -85,7 +74,8 @@ function handleMouseUp(e) {
           showCopyButton(selection);
         }
       });
-      setTimeout(() => {
+      if (mouseUpTimeout) clearTimeout(mouseUpTimeout);
+      mouseUpTimeout = setTimeout(() => {
         toggleSelectionMode(true);
       }, 500);
     }
@@ -160,7 +150,6 @@ function removeCopyButton() {
   if (copyButton) {
     copyButton.remove();
     copyButton = null;
-    currentSelection = "";
   }
 }
 
