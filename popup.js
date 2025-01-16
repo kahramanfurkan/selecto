@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
   };
 
-  document.querySelectorAll(".open-shortcuts").forEach(el => {
+  document.querySelectorAll(".open-shortcuts").forEach((el) => {
     el.addEventListener("click", openShortcutsPage);
   });
 
@@ -14,6 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (selectTextCommand && selectTextCommand.shortcut) {
       document.getElementById("currentShortcut").textContent =
         selectTextCommand.shortcut;
+    } else {
+      document.getElementById("currentShortcut").textContent = "Not set";
     }
   });
 
