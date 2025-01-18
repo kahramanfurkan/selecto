@@ -4,6 +4,7 @@ let statusTimeout = null;
 let copyButton = null;
 let currentSelection = "";
 let mouseUpTimeout = null;
+let isDoubleClick = false;
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "selectText") {
@@ -29,6 +30,7 @@ function enableSelectionMode() {
   document.addEventListener("keydown", preventEditing, true);
   document.addEventListener("input", preventEditing, true);
   document.addEventListener("click", preventClicks, true);
+  document.addEventListener("dblclick", handleDoubleClick, true);
   document.addEventListener("mouseup", handleMouseUp, true);
 }
 
@@ -39,6 +41,7 @@ function disableSelectionMode(onTextSelect) {
   document.removeEventListener("keydown", preventEditing, true);
   document.removeEventListener("input", preventEditing, true);
   document.removeEventListener("click", preventClicks, true);
+  document.removeEventListener("dblclick", handleDoubleClick, true);
   document.removeEventListener("mouseup", handleMouseUp, true);
   if (!onTextSelect) removeCopyButton();
   document.addEventListener("click", (e) => checkCopyButton(e.target), true);
@@ -64,8 +67,20 @@ function toggleStatusPopup(onTextSelect) {
   }
 }
 
+function handleDoubleClick(e) {
+  isDoubleClick = true;
+  const selection = window.getSelection();
+  if (selection) {
+    selection.selectAllChildren(e.target);
+    handleMouseUp(e);
+  }
+  setTimeout(() => {
+    isDoubleClick = false;
+  }, 100);
+}
+
 function handleMouseUp(e) {
-  if (isSelectionMode) {
+  if (isSelectionMode && (!e || !isDoubleClick || e.type === "dblclick")) {
     const selection = window.getSelection();
     if (selection && selection.toString().trim().length > 0) {
       currentSelection = selection.toString();
