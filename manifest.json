@@ -3,7 +3,7 @@
   "name": "Selecto",
   "version": "1.1",
   "description": "Easily select text from any elements including interactive ones like buttons,dropdowns etc.",
-  "permissions": ["storage", "commands", "tabs", "clipboardWrite"],
+  "permissions": ["storage", "commands", "activeTab", "clipboardWrite"],
   "commands": {
     "select-text": {
       "suggested_key": {

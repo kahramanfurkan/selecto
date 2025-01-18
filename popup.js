@@ -1,6 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const openShortcutsPage = () => {
-    chrome.tabs.create({ url: "chrome://extensions/shortcuts" });
+    chrome.tabs
+      .create({ url: "chrome://extensions/shortcuts" })
+      .catch((error) => {
+        console.error("Failed to open shortcuts page:", error);
+      });
   };
 
   document.querySelectorAll(".open-shortcuts").forEach((el) => {
